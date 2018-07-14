@@ -3,6 +3,7 @@ package com.guilstay.agendaalunos;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,8 +30,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ListView listaAlunos = findViewById(R.id.lista_alunos);
+        registerForContextMenu(listaAlunos);
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)  {
+        menu.add("Deletar");
+    }
 
     public void carregaLista() {
         AlunoDao dao = new AlunoDao(this);
@@ -39,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunos);
 
-        ListView listaAlunos = (ListView) findViewById(R.id.lista_alunos);
+        ListView listaAlunos = findViewById(R.id.lista_alunos);
         listaAlunos.setAdapter(adapter);
 
         listaAlunos.setAdapter(adapter);
