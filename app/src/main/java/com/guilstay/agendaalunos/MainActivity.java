@@ -4,15 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
-<<<<<<< HEAD
-=======
+
 import android.view.MenuItem;
->>>>>>> d093586a62c0044b1d8450cff35303afb934d269
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -29,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
 
         listaAlunos = findViewById(R.id.lista_alunos);
 
+        listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> lista, View item, int possition, long id) {
+                Aluno aluno =  (Aluno) listaAlunos.getItemAtPosition(possition);
+                Toast.makeText(MainActivity.this, "Aluno " + aluno.getNome() + "Clicado", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         Button novoAluno = (Button) findViewById(R.id.novo_aluno);
         novoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,17 +46,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
-        ListView listaAlunos = findViewById(R.id.lista_alunos);
-=======
->>>>>>> d093586a62c0044b1d8450cff35303afb934d269
         registerForContextMenu(listaAlunos);
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)  {
-        menu.add("Deletar");
-    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo)  {
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 dao.deleta(aluno);
                 dao.close();
                 carregaLista();
+                Toast.makeText(MainActivity.this, "Aluno deletado com sucesso", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -74,15 +75,8 @@ public class MainActivity extends AppCompatActivity {
         List<Aluno> alunos = dao.buscaAlunos();
         dao.close();
 
-<<<<<<< HEAD
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunos);
 
-        ListView listaAlunos = findViewById(R.id.lista_alunos);
-        listaAlunos.setAdapter(adapter);
-
-=======
         ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
->>>>>>> d093586a62c0044b1d8450cff35303afb934d269
         listaAlunos.setAdapter(adapter);
     }
 
